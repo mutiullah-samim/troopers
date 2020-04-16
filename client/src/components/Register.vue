@@ -52,7 +52,7 @@ export default {
         });
         if (response.data.status) {
           this.hasError = false;
-          console.log("successfully registered");
+          this.$store.dispatch("setToken", response.data.token);
         } else {
           this.hasError = true;
           this.error = response.data.error;
