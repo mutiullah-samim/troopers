@@ -6,5 +6,8 @@ module.exports = {
 		password: '',
 	},
 	port: process.env.PORT || 3000,
+	authentication: {
+		jwtSecret: 'troopers123'
+	}
 
 }
