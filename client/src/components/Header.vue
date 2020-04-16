@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar color="deep-purple accent-4" dense dark>
+    <v-app-bar color="primary" dark>
       <v-toolbar-title>Troopers</v-toolbar-title>
       <v-spacer></v-spacer>
 
