@@ -73,7 +73,7 @@ module.exports = {
 						return res.json({
 							status: true,
 							error: null,
-							data: result3,
+							data: [user_object],
 							token: jwtSignUser(user_object)
 						})
 
@@ -87,5 +87,49 @@ module.exports = {
 
 
 	},
+	login(req, res) {
+		const email = req.body.email
+
+		db.query(`SELECT * FROM users WHERE email='${email}' LIMIT 1`, function (error, result) {
+			if (error) throw error;
+
+			if (result.length > 0) {
+
+				//if email is registered check the password
+				const password = bcrypt.compareSync(req.body.password, result[0].password);
+				if (password) {
+					//if password is correct
+					const user_object = {
+						id: result[0].id,
+						email: result[0].email,
+					}
+
+					return res.json({
+						status: true,
+						error: null,
+						data: [user_object],
+						token: jwtSignUser(user_object)
+					});
+				} else {
+					//if password is incorrect
+					return res.json({
+						status: false,
+						error: 'Your password is incorrect',
+						data: null
+					});
+				}
+
+			} else {
+				//email is not registered
+				return res.json({
+					status: false,
+					error: 'This email is not registered in our system',
+					data: null
+				});
+			}
+
+		})
+
+	}
 
 }
