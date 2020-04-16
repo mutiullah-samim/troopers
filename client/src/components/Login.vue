@@ -2,29 +2,18 @@
   <v-card class="mx-auto mt-10" max-width="344">
     <v-card-text>
       <v-flex>
-        <form name="register-form" autocomplete="off">
+        <form name="login-form">
           <v-text-field label="Email" v-model="email"></v-text-field>
-          <v-text-field
-            label="Password"
-            type="password"
-            v-model="password"
-            autocomplete="new-password"
-          ></v-text-field>
-          <v-text-field
-            label="Confirm password"
-            type="password"
-            autocomplete="confirm-new-password"
-            v-model="confirm_password"
-          ></v-text-field>
+          <v-text-field label="Password" type="password" v-model="password"></v-text-field>
         </form>
       </v-flex>
       <v-alert type="error" v-if="hasError">{{error}}</v-alert>
     </v-card-text>
     <v-card-actions class="flex-column">
-      <v-btn dark class="cyan" @click="register()">Register</v-btn>
+      <v-btn dark class="cyan" @click="login()">Login</v-btn>
       <p class="pt-3">
-        Already have an account?
-        <router-link to="/login">Login</router-link>
+        Dont have an account?
+        <router-link to="/register">Register</router-link>
       </p>
     </v-card-actions>
   </v-card>
@@ -37,18 +26,16 @@ export default {
     return {
       email: "",
       password: "",
-      confirm_password: "",
       hasError: false,
       error: null
     };
   },
   methods: {
-    async register() {
+    async login() {
       try {
-        const response = await AuthenticationService.register({
+        const response = await AuthenticationService.login({
           email: this.email,
-          password: this.password,
-          confirm_password: this.confirm_password
+          password: this.password
         });
         if (response.data.status) {
           this.hasError = false;

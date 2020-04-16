@@ -16,7 +16,11 @@
         <v-list>
           <v-list-item>
             <v-list-item-title>My profile</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
             <v-list-item-title>All users</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
             <v-list-item-title>Logout</v-list-item-title>
           </v-list-item>
         </v-list>
