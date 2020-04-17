@@ -6,7 +6,7 @@
           <strong>Your account has been created.</strong> Tell us a little more about yourself
         </v-alert>
         <v-card>
-          <v-card-title>Create your profile</v-card-title>
+          <v-card-title>{{$store.state.registerRedirect ? 'Create your profile' : 'Edit profile'}}</v-card-title>
           <v-card-text>
             <form name="update-profile-form">
               <v-row>
@@ -44,8 +44,14 @@
             </form>
             <v-alert type="error" v-if="hasError">{{error}}</v-alert>
           </v-card-text>
-          <v-card-actions class="flex-column">
+          <v-card-actions class="flex-row justify-center">
             <v-btn dark class="cyan mb-3" @click="updateProfile()">Save</v-btn>
+            <v-btn
+              dark
+              class="cyan mb-3"
+              v-if="!$store.state.registerRedirect"
+              @click="$router.push('profile')"
+            >Cancel</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -54,7 +60,7 @@
 </template>
 
 <script>
-import AuthenticationService from "@/services/AuthenticationService";
+import UserService from "@/services/UserService";
 export default {
   data() {
     return {
@@ -71,7 +77,7 @@ export default {
   methods: {
     async updateProfile() {
       try {
-        const response = await AuthenticationService.updateProfile({
+        const response = await UserService.updateProfile({
           first_name: this.first_name,
           last_name: this.last_name,
           phone: this.phone,
@@ -80,7 +86,7 @@ export default {
         });
         if (response.data.status) {
           this.hasError = false;
-          console.log(response.data.message);
+          this.$router.push("profile");
         } else {
           this.hasError = true;
           this.error = response.data.error;
@@ -88,6 +94,26 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async getProfile() {
+      try {
+        const response = await UserService.profile();
+        if (response.data.data.length > 0) {
+          const userInfo = response.data.data[0];
+          this.first_name = userInfo.first_name;
+          this.last_name = userInfo.last_name;
+          this.phone = userInfo.phone;
+          this.dob = new Date(userInfo.dob).toISOString().substr(0, 10);
+          this.address = userInfo.address;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  mounted() {
+    if (!this.$store.state.registerRedirect) {
+      this.getProfile();
     }
   }
 };

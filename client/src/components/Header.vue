@@ -14,7 +14,7 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item>
+          <v-list-item @click="changeRoute('profile')">
             <v-list-item-title>My profile</v-list-item-title>
           </v-list-item>
           <v-list-item>

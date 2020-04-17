@@ -7,8 +7,5 @@ export default {
 	login(credentials) {
 		return Api().post('/login', credentials)
 	},
-	updateProfile(credentials) {
-		return Api().post('/update-profile', credentials)
-	},
 
 }
