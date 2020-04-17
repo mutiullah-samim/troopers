@@ -14,6 +14,13 @@ module.exports = (app) => {
 	app.post('/update-profile',
 		[isAuthenticated, UserControllerPolicy.updateProfile],
 		UserController.updateProfile)
+	app.get('/profile',
+		isAuthenticated,
+		UserController.profile)
+	app.get('/users',
+		isAuthenticated,
+		UserController.getUsers)
+
 
 
 }

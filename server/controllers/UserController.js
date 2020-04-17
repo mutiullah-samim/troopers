@@ -51,6 +51,35 @@ module.exports = {
 			}
 
 		})
+	},
+	profile(req, res) {
+		const user = req.user
+
+		//get the user profile
+		db.query(`SELECT * FROM user_profile WHERE user_id=${user.id} LIMIT 1`, function (error, result) {
+			if (error) throw error;
+
+			return res.json({
+				status: true,
+				error: null,
+				data: result
+			});
+		})
+	},
+
+	getUsers(req, res) {
+
+		const user = req.user
+		//get other users profile
+		db.query(`SELECT * FROM user_profile WHERE user_id!=${user.id}`, function (error, result) {
+			if (error) throw error;
+			return res.json({
+				status: true,
+				error: null,
+				data: result
+			});
+		})
 	}
+
 
 }
