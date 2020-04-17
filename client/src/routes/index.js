@@ -23,6 +23,12 @@ const ifLogedIn = (to, from, next) => {
 }
 
 export default [{
+		path: '/',
+		name: 'profile',
+		component: Profile,
+		beforeEnter: ifLogedIn,
+	},
+	{
 		path: '/register',
 		name: 'register',
 		component: Register,
