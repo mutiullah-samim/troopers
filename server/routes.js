@@ -5,19 +5,19 @@ const UserControllerPolicy = require('./policies/UserControllerPolicy')
 const isAuthenticated = require('./policies/isAuthenticated')
 
 module.exports = (app) => {
-	app.post('/register',
+	app.post('/api/register',
 		AuthenticationPolicy.register,
 		AuthenticationController.register)
-	app.post('/login',
+	app.post('/api/login',
 		AuthenticationPolicy.login,
 		AuthenticationController.login)
-	app.post('/update-profile',
+	app.post('/api/update-profile',
 		[isAuthenticated, UserControllerPolicy.updateProfile],
 		UserController.updateProfile)
-	app.get('/profile',
+	app.get('/api/profile',
 		isAuthenticated,
 		UserController.profile)
-	app.get('/users',
+	app.get('/api/users',
 		isAuthenticated,
 		UserController.getUsers)
 
