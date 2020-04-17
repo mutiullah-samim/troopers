@@ -3,6 +3,7 @@ import NotFound from '@/components/NotFound'
 import Login from '@/components/Login'
 import UpdateProfile from '@/components/UpdateProfile'
 import Profile from '@/components/Profile'
+import Users from '@/components/Users'
 export default [{
 		path: '/register',
 		name: 'register',
@@ -22,6 +23,11 @@ export default [{
 		path: '/profile',
 		name: 'profile',
 		component: Profile
+	},
+	{
+		path: '/users',
+		name: 'users',
+		component: Users
 	},
 	{
 		path: '*',

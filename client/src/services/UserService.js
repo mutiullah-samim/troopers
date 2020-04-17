@@ -7,5 +7,8 @@ export default {
 	profile() {
 		return Api().get('/profile')
 	},
+	users() {
+		return Api().get('/users')
+	},
 
 }
