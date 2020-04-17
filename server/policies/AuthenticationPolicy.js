@@ -71,28 +71,11 @@ module.exports = {
 
 		// if validation fails send error message
 		if (error) {
-			switch (error.details[0].context.key) {
-				case 'email':
-					return res.json({
-						status: false,
-						error: 'Email is required',
-						data: null
-					})
-					break
-				case 'password':
-					return res.json({
-						status: false,
-						error: 'Password is required',
-						data: null
-					})
-					break
-				default:
-					return res.json({
-						status: false,
-						error: 'Email and password are required',
-						data: null
-					})
-			}
+			return res.json({
+				status: false,
+				error: 'Email and password are required',
+				data: null
+			})
 		} else {
 			// everything is good and proceed
 			next()

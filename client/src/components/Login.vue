@@ -46,6 +46,7 @@ export default {
         if (response.data.status) {
           this.hasError = false;
           this.$store.dispatch("setToken", response.data.token);
+          this.$router.push({ name: "profile" });
         } else {
           this.hasError = true;
           this.error = response.data.error;

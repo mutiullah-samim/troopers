@@ -4,30 +4,53 @@ import Login from '@/components/Login'
 import UpdateProfile from '@/components/UpdateProfile'
 import Profile from '@/components/Profile'
 import Users from '@/components/Users'
+import store from '@/store/store'
+
+const ifNotLogedIn = (to, from, next) => {
+	if (!store.state.isLoggedIn) {
+		next()
+		return
+	}
+	next('/profile')
+}
+
+const ifLogedIn = (to, from, next) => {
+	if (store.state.isLoggedIn) {
+		next()
+		return
+	}
+	next('/login')
+}
+
 export default [{
 		path: '/register',
 		name: 'register',
-		component: Register
+		component: Register,
+		beforeEnter: ifNotLogedIn,
 	},
 	{
 		path: '/login',
 		name: 'login',
-		component: Login
+		component: Login,
+		beforeEnter: ifNotLogedIn,
 	},
 	{
 		path: '/update-profile',
 		name: 'update-profile',
-		component: UpdateProfile
+		component: UpdateProfile,
+		beforeEnter: ifLogedIn,
 	},
 	{
 		path: '/profile',
 		name: 'profile',
-		component: Profile
+		component: Profile,
+		beforeEnter: ifLogedIn,
 	},
 	{
 		path: '/users',
 		name: 'users',
-		component: Users
+		component: Users,
+		beforeEnter: ifLogedIn,
 	},
 	{
 		path: '*',
